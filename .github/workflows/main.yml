@@ -1,9 +1,8 @@
-name: Build Mini Kasir
+name: Build C++ to EXE
 
 on:
   push:
-    branches:
-      - main
+    branches: ["main"]
   workflow_dispatch:
 
 jobs:
@@ -11,16 +10,22 @@ jobs:
     runs-on: windows-latest
 
     steps:
-      - name: Checkout
+      - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Setup MinGW
+        uses: msys2/setup-msys2@v2
+        with:
+          msystem: UCRT64
+          update: true
+          install: mingw-w64-ucrt-x86_64-gcc
+
       - name: Compile C++
-        shell: cmd
-        run: g++ -std=c++17 main.cpp -o Mini-Kasir.exe
+        shell: msys2 {0}
+        run: g++ main.cpp -o main.exe
 
       - name: Upload EXE
         uses: actions/upload-artifact@v4
         with:
           name: Mini-Kasir
-          path: Mini-Kasir.exe
-          if-no-files-found: error
+          path: main.exe
