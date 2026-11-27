@@ -11,6 +11,7 @@ int main() {
 
     int pilihMakan, pilihMinum;
     int total = 0;
+    int bayar, kembalian;
 
     cout << "===== MINI KASIR =====\n";
 
@@ -51,16 +52,38 @@ int main() {
     }
 
     cout << "\n===== STRUK PEMBAYARAN =====\n";
-    cout << "Makanan: " << makanan[pilihMakan - 1] << endl;
+    cout << "Makanan : " << makanan[pilihMakan - 1] << endl;
+
+    cout << "Harga makanan : Rp"
+         << hargaMakanan[pilihMakan - 1] << endl;
 
     if (pilihMinum == 0) {
-        cout << "Minuman: Tidak membeli\n";
+        cout << "Minuman : Tidak membeli\n";
     } else {
-        cout << "Minuman: " << minuman[pilihMinum - 1] << endl;
+        cout << "Minuman : " << minuman[pilihMinum - 1] << endl;
+        cout << "Harga minuman : Rp"
+             << hargaMinuman[pilihMinum - 1] << endl;
     }
 
-    cout << "Total: Rp" << total << endl;
-    cout << "Terima kasih!\n";
+    cout << "-----------------------------\n";
+    cout << "TOTAL : Rp" << total << endl;
+
+    cout << "\nMasukkan uang pembayaran: Rp";
+    cin >> bayar;
+
+    if (bayar < total) {
+        cout << "\nUang pembayaran kurang!\n";
+        cout << "Kekurangan: Rp" << total - bayar << endl;
+        return 0;
+    }
+
+    kembalian = bayar - total;
+
+    cout << "\n===== BUKTI PEMBAYARAN =====\n";
+    cout << "Total belanja : Rp" << total << endl;
+    cout << "Uang bayar    : Rp" << bayar << endl;
+    cout << "Kembalian     : Rp" << kembalian << endl;
+    cout << "Terima kasih sudah berbelanja!\n";
 
     return 0;
 }
