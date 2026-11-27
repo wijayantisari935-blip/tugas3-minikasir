@@ -1,0 +1,26 @@
+name: Build Mini Kasir
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Compile C++
+        shell: cmd
+        run: g++ -std=c++17 main.cpp -o Mini-Kasir.exe
+
+      - name: Upload EXE
+        uses: actions/upload-artifact@v4
+        with:
+          name: Mini-Kasir
+          path: Mini-Kasir.exe
+          if-no-files-found: error
